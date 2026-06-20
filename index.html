@@ -810,29 +810,16 @@
       padding-bottom: 8px;
     }
     .concepts-grid {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 24px;
-      cursor: grab;
     }
-    .concepts-grid:active { cursor: grabbing; }
-    .concepts-grid::-webkit-scrollbar { height: 2px; }
-    .concepts-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
-    .concepts-grid::-webkit-scrollbar-thumb { background: rgba(200,150,90,0.4); border-radius: 2px; }
     .concept-card {
       position: relative;
-      height: 480px;
-      flex-shrink: 0;
+      aspect-ratio: 4/5;
       overflow: hidden;
-      scroll-snap-align: start;
       border-radius: 4px;
     }
-    .concept-card.cc-ratio-landscape { width: calc(480px * 1.25); }
-    .concept-card.cc-ratio-portrait  { width: calc(480px * 0.8); }
     .concept-card-bg {
       position: absolute;
       inset: 0;
@@ -1090,8 +1077,7 @@
       .nav-burger { display: flex; }
       .inner { padding: 0 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .concept-card { flex: 0 0 280px; height: 400px; }
-      .concept-card--wide { flex: 0 0 340px; }
+      .concepts-grid { grid-template-columns: 1fr; }
       .concepts-header { flex-direction: column; gap: 16px; align-items: flex-start; }
       .concepts-note { text-align: left; max-width: 100%; }
       .about-stats { grid-template-columns: 1fr; }
