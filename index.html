@@ -417,9 +417,17 @@
     }
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      grid-template-columns: 320px 1fr 1fr;
+      gap: 60px;
       align-items: start;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 2px;
+      display: block;
     }
     .about-headline {
       font-size: clamp(44px, 5.5vw, 80px);
@@ -1093,6 +1101,7 @@
       .nav-burger { display: flex; }
       .inner { padding: 0 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-photo { aspect-ratio: 4/3; object-position: center 20%; }
       .concepts-header { flex-direction: column; gap: 16px; align-items: flex-start; }
       .concepts-note { text-align: left; max-width: 100%; }
       .concepts-grid .concept-card { flex: 0 0 280px; }
@@ -1187,6 +1196,9 @@
       <span class="eyebrow reveal" style="color:var(--ash)">About</span>
       <div class="about-grid">
         <div class="reveal">
+          <img src="images/Andrei.JPG" alt="Andrei Serikov" class="about-photo">
+        </div>
+        <div class="reveal" style="transition-delay:0.05s">
           <h2 class="about-headline">Detail is<br>the <em>difference</em></h2>
         </div>
         <div class="about-body reveal" style="transition-delay:0.15s">
