@@ -785,13 +785,13 @@
     /* ─── Concepts ──────────────────────── */
     .concepts {
       background: #0e0c0a;
-      padding: 140px 0;
+      padding: 140px 0 100px;
     }
     .concepts-header {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin-bottom: 72px;
+      margin-bottom: 56px;
     }
     .concepts-headline {
       font-size: clamp(40px, 6vw, 88px);
@@ -811,10 +811,24 @@
       line-height: 1.6;
       padding-bottom: 8px;
     }
+    .concepts-scroll-wrap {
+      overflow: hidden;
+      margin: 0 -60px;
+    }
     .concepts-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-direction: row;
       gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 60px 32px;
+      scrollbar-width: none;
+    }
+    .concepts-grid::-webkit-scrollbar { display: none; }
+    .concepts-grid .concept-card {
+      flex: 0 0 380px;
+      scroll-snap-align: start;
     }
     .concept-card {
       position: relative;
@@ -1079,9 +1093,9 @@
       .nav-burger { display: flex; }
       .inner { padding: 0 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .concepts-grid { grid-template-columns: 1fr; }
       .concepts-header { flex-direction: column; gap: 16px; align-items: flex-start; }
       .concepts-note { text-align: left; max-width: 100%; }
+      .concepts-grid .concept-card { flex: 0 0 280px; }
       .about-stats { grid-template-columns: 1fr; }
       .stat { border-right: none; padding-left: 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
       .stat:last-child { border-bottom: none; }
@@ -1433,6 +1447,7 @@
         <h2 class="concepts-headline">Space<br>Concepts</h2>
         <p class="concepts-note">Concept development across dining, residential, and retail — from brand identity to buildout direction.</p>
       </div>
+      <div class="concepts-scroll-wrap">
       <div class="concepts-grid">
 
         <!-- Concept 1 — wide -->
@@ -1501,6 +1516,7 @@
           </div>
         </div>
 
+      </div>
       </div>
     </div>
   </section>
