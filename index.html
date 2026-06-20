@@ -810,15 +810,26 @@
       padding-bottom: 8px;
     }
     .concepts-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 24px;
+      cursor: grab;
     }
+    .concepts-grid:active { cursor: grabbing; }
+    .concepts-grid::-webkit-scrollbar { height: 2px; }
+    .concepts-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    .concepts-grid::-webkit-scrollbar-thumb { background: rgba(200,150,90,0.4); border-radius: 2px; }
     .concept-card {
       position: relative;
-      aspect-ratio: 3/4;
+      flex: 0 0 340px;
+      height: 480px;
       overflow: hidden;
-      cursor: none;
+      scroll-snap-align: start;
+      border-radius: 4px;
     }
     .concept-card-bg {
       position: absolute;
@@ -870,8 +881,7 @@
     .cc-bg-4 { background-image: url('images/cc-4.png'); background-size: cover; background-position: center; }
     .cc-bg-5 { background-image: url('images/cc-5.png'); background-size: cover; background-position: center; }
     .cc-bg-6 { background: radial-gradient(ellipse at 50% 40%, #1a1520 0%, #110e16 60%, #080709 100%); }
-    /* Wide card spans 2 columns */
-    .concept-card--wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .concept-card--wide { flex: 0 0 520px; }
 
     /* ─── Philosophy ─────────────────────── */
     .philosophy {
@@ -1078,8 +1088,8 @@
       .nav-burger { display: flex; }
       .inner { padding: 0 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .concepts-grid { grid-template-columns: 1fr; }
-      .concept-card--wide { grid-column: span 1; aspect-ratio: 3/4; }
+      .concept-card { flex: 0 0 280px; height: 400px; }
+      .concept-card--wide { flex: 0 0 340px; }
       .concepts-header { flex-direction: column; gap: 16px; align-items: flex-start; }
       .concepts-note { text-align: left; max-width: 100%; }
       .about-stats { grid-template-columns: 1fr; }
@@ -1936,6 +1946,28 @@
       const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
       bar.style.width = pct + '%';
     });
+
+    /* ─────────────────────────────────────────
+       CONCEPTS DRAG SCROLL
+    ───────────────────────────────────────── */
+    (function() {
+      const grid = document.querySelector('.concepts-grid');
+      if (!grid) return;
+      let isDown = false, startX, scrollLeft;
+      grid.addEventListener('mousedown', e => {
+        isDown = true;
+        startX = e.pageX - grid.offsetLeft;
+        scrollLeft = grid.scrollLeft;
+      });
+      grid.addEventListener('mouseleave', () => isDown = false);
+      grid.addEventListener('mouseup', () => isDown = false);
+      grid.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - grid.offsetLeft;
+        grid.scrollLeft = scrollLeft - (x - startX) * 1.5;
+      });
+    })();
 
     /* ─────────────────────────────────────────
        CUSTOM CURSOR
