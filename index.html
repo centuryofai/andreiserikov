@@ -668,22 +668,23 @@
       text-align: right;
     }
     .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 2px;
     }
     .proj-card {
-      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
       overflow: hidden;
       background: #0d0d0d;
     }
-    .proj-card--wide { grid-column: span 2; }
+    .proj-card:nth-child(even) { direction: rtl; }
+    .proj-card:nth-child(even) .proj-info { direction: ltr; }
     .proj-card-inner {
-      aspect-ratio: 4/5;
       position: relative;
       overflow: hidden;
     }
-    .proj-card--wide .proj-card-inner { aspect-ratio: 8/5; }
     .proj-bg {
       position: absolute;
       top: -5%; left: -5%;
@@ -701,40 +702,35 @@
     .bg-4 { background-image: url('images/bg-4.png'); }
     .bg-5 { background-image: url('images/bg-5.png'); }
 
-    .proj-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.10) 100%);
-    }
+    .proj-overlay { display: none; }
     .proj-info {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 32px;
-      transform: translateY(8px);
-      transition: transform 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 64px 72px;
+      direction: ltr;
     }
-    .proj-card:hover .proj-info { transform: translateY(0); }
     .proj-cat {
       font-size: 9px;
       font-weight: 400;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 10px;
+      color: var(--amber);
+      margin-bottom: 20px;
     }
     .proj-name {
-      font-size: 22px;
+      font-size: clamp(28px, 3vw, 44px);
       font-weight: 300;
       color: var(--white);
-      line-height: 1.2;
+      line-height: 1.15;
       letter-spacing: -0.01em;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
     .proj-meta {
-      font-size: 11px;
-      color: rgba(255,255,255,0.35);
-      line-height: 1.5;
-      margin-bottom: 14px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+      margin-bottom: 28px;
     }
     .proj-tag {
       display: inline-block;
@@ -1067,8 +1063,9 @@
     @media (max-width: 1024px) {
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .timeline-steps { grid-template-columns: repeat(3, 1fr); }
-      .projects-grid { grid-template-columns: repeat(2, 1fr); }
-      .proj-card--wide { grid-column: span 2; }
+      .proj-card { grid-template-columns: 1fr; min-height: auto; }
+      .proj-card-inner { min-height: 300px; }
+      .proj-card:nth-child(even) { direction: ltr; }
     }
     @media (max-width: 768px) {
       #nav { padding: 24px; }
@@ -1090,9 +1087,10 @@
       .timeline-step { border-bottom: 1px solid rgba(0,0,0,0.06); padding: 28px 0; }
       .timeline-step:last-child { border-bottom: none; }
       .projects-header { flex-direction: column; gap: 16px; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .proj-card--wide { grid-column: span 1; }
-      .proj-card--wide .proj-card-inner { aspect-ratio: 4/3; }
+      .proj-card { grid-template-columns: 1fr; min-height: auto; }
+      .proj-card-inner { min-height: 260px; }
+      .proj-info { padding: 40px 28px; }
+      .proj-card:nth-child(even) { direction: ltr; }
       .phil-pillars { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; gap: 60px; }
       .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
@@ -1320,7 +1318,7 @@
         <p class="projects-note reveal" style="transition-delay:0.1s">Real projects. Real results. Restaurants, residential, and retail — delivered on time and on budget.</p>
       </div>
       <div class="projects-grid">
-        <div class="proj-card proj-card--wide reveal">
+        <div class="proj-card reveal">
           <div class="proj-card-inner">
             <div class="proj-bg bg-1"></div>
             <div class="proj-overlay"></div>
@@ -1372,7 +1370,7 @@
           </div>
         </div>
 
-        <div class="proj-card proj-card--wide reveal" style="transition-delay:0.2s">
+        <div class="proj-card reveal" style="transition-delay:0.2s">
           <div class="proj-card-inner">
             <div class="proj-bg bg-5"></div>
             <div class="proj-overlay"></div>
